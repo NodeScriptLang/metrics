@@ -19,7 +19,11 @@ export class HistogramMetric<L = any> extends Metric<L> {
         return 'histogram';
     }
 
-    add(value: number, labels: Partial<L> = {}, timestamp: number = Date.now()) {
+    addMillis(value: number, labels: Partial<L> = {}, timestamp: number = Date.now()) {
+        this.addSeconds(value * .001);
+    }
+
+    addSeconds(value: number, labels: Partial<L> = {}, timestamp: number = Date.now()) {
         const key = this.createMetricLabelsKey(labels);
         const datum = this.data.get(key);
         if (datum) {
@@ -43,7 +47,7 @@ export class HistogramMetric<L = any> extends Metric<L> {
         return () => {
             const [sec, nanosec] = process.hrtime(startedAt);
             const value = sec + nanosec * 1e-9;
-            this.add(value, labels);
+            this.addSeconds(value, labels);
         };
     }
 

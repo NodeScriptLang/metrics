@@ -100,19 +100,19 @@ describe('HistogramMetric', () => {
 
     it('compiles a report', () => {
         const histogram = new HistogramMetric('foo', 'Foo help');
-        histogram.add(0.16, { lbl: 'one' });
-        histogram.add(0.15, { lbl: 'one' });
-        histogram.add(0.24, { lbl: 'one' });
-        histogram.add(0.11, { lbl: 'one' });
-        histogram.add(0.55, { lbl: 'one' });
+        histogram.addSeconds(0.16, { lbl: 'one' });
+        histogram.addSeconds(0.15, { lbl: 'one' });
+        histogram.addSeconds(0.24, { lbl: 'one' });
+        histogram.addSeconds(0.11, { lbl: 'one' });
+        histogram.addSeconds(0.55, { lbl: 'one' });
 
-        histogram.add(0.1, { lbl: 'two' });
-        histogram.add(0.6, { lbl: 'two' });
-        histogram.add(0.9, { lbl: 'two' });
-        histogram.add(1.0, { lbl: 'two' });
-        histogram.add(1.05, { lbl: 'two' });
-        histogram.add(2, { lbl: 'two' });
-        histogram.add(3, { lbl: 'two' });
+        histogram.addSeconds(0.1, { lbl: 'two' });
+        histogram.addSeconds(0.6, { lbl: 'two' });
+        histogram.addSeconds(0.9, { lbl: 'two' });
+        histogram.addSeconds(1.0, { lbl: 'two' });
+        histogram.addSeconds(1.05, { lbl: 'two' });
+        histogram.addSeconds(2, { lbl: 'two' });
+        histogram.addSeconds(3, { lbl: 'two' });
 
         assert.strictEqual(histogram.report().trim(), [
             `# HELP foo Foo help`,
