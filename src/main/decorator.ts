@@ -1,4 +1,4 @@
-import { Mesh } from '@nodescript/mesh';
+import { Mesh } from 'mesh-ioc';
 
 import { Metric } from './metric.js';
 
