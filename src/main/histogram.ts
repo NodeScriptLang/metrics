@@ -20,7 +20,7 @@ export class HistogramMetric<L = any> extends Metric<L> {
     }
 
     addMillis(value: number, labels: Partial<L> = {}, timestamp: number = Date.now()) {
-        this.addSeconds(value * .001);
+        this.addSeconds(value * .001, labels, timestamp);
     }
 
     addSeconds(value: number, labels: Partial<L> = {}, timestamp: number = Date.now()) {
