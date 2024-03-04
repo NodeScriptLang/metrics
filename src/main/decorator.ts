@@ -1,6 +1,6 @@
 import { Mesh } from 'mesh-ioc';
 
-import { Metric } from './metric.js';
+import { BaseMetric } from './BaseMetric.js';
 
 export interface MetricDescriptor {
     target: any;
@@ -18,14 +18,14 @@ export function metric() {
     };
 }
 
-export function* collectMetrics(mesh: Mesh, recursive = true): Iterable<Metric> {
+export function* collectMetrics(mesh: Mesh, recursive = true): Iterable<BaseMetric> {
     for (const [key, binding] of mesh) {
         if (binding.type === 'service') {
             for (const desc of metricDescriptors) {
                 if (desc.target.constructor === binding.class || desc.target.isPrototypeOf(binding.class)) {
                     const instance = mesh.resolve(key) as any;
                     const value = instance[desc.propertyKey];
-                    if (value instanceof Metric) {
+                    if (value instanceof BaseMetric) {
                         yield value;
                     }
                 }

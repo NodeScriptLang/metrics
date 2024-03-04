@@ -1,8 +1,10 @@
-import { Metric } from './metric.js';
+import { BaseMetric } from './BaseMetric.js';
 
 const DEFAULT_BUCKETS = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10];
 
-export class HistogramMetric<L = any> extends Metric<L> {
+const process = global.process;
+
+export class HistogramMetric<L = any> extends BaseMetric<L> {
     protected buckets: number[];
     data: Map<string, HistogramDatum<L>> = new Map();
 

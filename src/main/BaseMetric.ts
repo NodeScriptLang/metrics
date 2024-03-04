@@ -4,7 +4,7 @@ export interface MetricDatum<L> {
     value: number;
 }
 
-export abstract class Metric<L = any> {
+export abstract class BaseMetric<L = any> {
 
     constructor(
         public name: string,

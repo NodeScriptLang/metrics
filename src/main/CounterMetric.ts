@@ -1,6 +1,6 @@
-import { Metric, MetricDatum } from './metric.js';
+import { BaseMetric, MetricDatum } from './BaseMetric.js';
 
-export class CounterMetric<L = any> extends Metric<L> {
+export class CounterMetric<L = any> extends BaseMetric<L> {
     protected data: Map<string, MetricDatum<L>> = new Map();
 
     getType() {
