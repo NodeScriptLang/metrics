@@ -1,43 +1,23 @@
+import { createMemberDecorator, findMembers } from 'mesh-decorators';
 import { Mesh } from 'mesh-ioc';
 
 import { BaseMetric } from './BaseMetric.js';
 
-export interface MetricDescriptor {
-    target: any;
-    propertyKey: string;
-}
+export const metric = createMemberDecorator('@nodescript/metric');
 
-export const metricDescriptors: MetricDescriptor[] = [];
-
-export function metric() {
-    return (target: any, propertyKey: string) => {
-        metricDescriptors.push({
-            target,
-            propertyKey,
-        });
-    };
-}
-
-export function* collectMetrics(mesh: Mesh, recursive = true): Iterable<BaseMetric> {
-    for (const [key, binding] of mesh) {
-        if (binding.type === 'service') {
-            for (const desc of metricDescriptors) {
-                if (desc.target.constructor === binding.class || desc.target.isPrototypeOf(binding.class)) {
-                    const instance = mesh.resolve(key) as any;
-                    const value = instance[desc.propertyKey];
-                    if (value instanceof BaseMetric) {
-                        yield value;
-                    }
-                }
-            }
+export function findMetrics(mesh: Mesh): BaseMetric[] {
+    const metrics: BaseMetric[] = [];
+    const refs = findMembers('@nodescript/metric', mesh);
+    for (const { target, memberName } of refs) {
+        const value = target[memberName];
+        if (value instanceof BaseMetric) {
+            metrics.push(value);
         }
     }
-    if (recursive && mesh.parent) {
-        yield* collectMetrics(mesh.parent, recursive);
-    }
+    return metrics;
 }
 
-export function generateMetricsReport(mesh: Mesh, recursive = true) {
-    const all = [...collectMetrics(mesh, recursive)];
+export function generateMetricsReport(mesh: Mesh) {
+    const all = [...findMetrics(mesh)];
     return all.map(_ => _.report()).join('\n\n');
 }
