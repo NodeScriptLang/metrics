@@ -1,6 +1,6 @@
 {
     "name": "@nodescript/metrics",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "description": "Tiny backend metrics collection library",
     "type": "module",
     "sideEffects": false,
@@ -41,7 +41,7 @@
         "typescript": "^5.5.3"
     },
     "dependencies": {
-        "mesh-decorators": "^1.1.0",
+        "mesh-decorators": "^1.1.1",
         "mesh-ioc": "^4.0.1"
     }
 }
