@@ -41,7 +41,7 @@
         "typescript": "^5.5.3"
     },
     "dependencies": {
-        "mesh-decorators": "^1.0.1",
-        "mesh-ioc": "^3.3.1"
+        "mesh-decorators": "^1.1.0",
+        "mesh-ioc": "^4.0.1"
     }
 }
